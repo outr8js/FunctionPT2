@@ -55,7 +55,7 @@ gsap.registerPlugin(ScrollTrigger);
 useLayoutEffect(() => {
   let element = ref.current;
 
-  let svg = document.getElementsByClassName("svg-path")[0];
+  let svg = ref.current.querySelector(".svg-path");
 
   const length = svg.getTotalLength(); 
 
