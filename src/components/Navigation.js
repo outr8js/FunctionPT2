@@ -4,7 +4,8 @@ import styled from "styled-components";
 import Button from "./Button";
 import Logo from "./Logo";
 import { useLanguage } from "../context/LanguageContext";
-import { useNavigate, useLocation } from "react-router-dom"; // Imported for navigation logic
+import { useNavigate, useLocation } from "react-router-dom";
+import ContactPage from "./ContactPage"; // Corrected import path
 
 const Section = styled.section`
   width: 100vw;
@@ -165,25 +166,21 @@ const HamburgerMenu = styled.span`
 
 const Navigation = () => {
   const [click, setClick] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false); // State for ContactPage popup
   const { lang, translations, toggleLanguage } = useLanguage();
-  
-  // Hooks for navigation logic
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleMenuClick = (id) => {
-    setClick(false); // Close mobile menu first
+    setClick(false);
 
-    // 1. Handle "Blog" link specifically
     if (id === "blog") {
       navigate("/blog");
       return;
     }
 
-    // 2. If we are currently on the Blog page and want to go to a homepage section (like 'about')
     if (location.pathname !== "/") {
       navigate("/");
-      // Scroll after a slight delay to allow the homepage to load
       setTimeout(() => {
         const element = document.getElementById(id);
         if (element) {
@@ -193,11 +190,10 @@ const Navigation = () => {
             inline: "nearest",
           });
         }
-      }, 100); 
+      }, 100);
       return;
     }
 
-    // 3. Standard scroll behavior if we are already on the homepage
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({
@@ -206,6 +202,10 @@ const Navigation = () => {
         inline: "nearest",
       });
     }
+  };
+
+  const toggleContactPopup = () => {
+    setIsContactOpen(!isContactOpen);
   };
 
   return (
@@ -233,12 +233,9 @@ const Navigation = () => {
           <MenuItem onClick={() => handleMenuClick("services")}>
             {translations.nav_service}
           </MenuItem>
-          
-          {/* Blog Menu Item Added Here */}
           <MenuItem onClick={() => handleMenuClick("blog")}>
             {translations.nav_blog}
           </MenuItem>
-
           <MenuItem onClick={() => handleMenuClick("faq")}>
             {translations.nav_faq}
           </MenuItem>
@@ -246,37 +243,27 @@ const Navigation = () => {
             {translations.nav_insurance}
           </MenuItem>
 
-          {/* Mobile language toggle */}
           <LanguageToggle onClick={toggleLanguage} className="mobile">
             {lang === "EN" ? "ESPAÑOL" : "ENGLISH"}
           </LanguageToggle>
 
-          {/* Mobile Contact button – opens Google Form in new tab */}
-          <MenuItem>
+          <MenuItem onClick={toggleContactPopup}> {/* Toggle popup on click */}
             <div className="mobile">
-              <Button
-                text={translations.btn_contact_us}
-                link="https://forms.gle/oV7zH8yWXMQGRusZ7"
-                newTab={true}
-              />
+              <Button text={translations.btn_contact_us} />
             </div>
           </MenuItem>
         </Menu>
 
-        {/* Desktop language toggle */}
         <LanguageToggle onClick={toggleLanguage} className="desktop">
           {lang === "EN" ? "ES" : "EN"}
         </LanguageToggle>
 
-        {/* Desktop Contact button – opens Google Form in new tab */}
-        <div className="desktop">
-          <Button
-            text={translations.btn_contact_us}
-            link="https://forms.gle/oV7zH8yWXMQGRusZ7"
-            newTab={true}
-          />
+        <div className="desktop" onClick={toggleContactPopup}> {/* Toggle popup on click */}
+          <Button text={translations.btn_contact_us} />
         </div>
       </NavBar>
+
+      {isContactOpen && <ContactPage onClose={toggleContactPopup} />} {/* Render ContactPage as popup */}
     </Section>
   );
 };

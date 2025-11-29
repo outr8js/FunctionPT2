@@ -12,6 +12,7 @@ transform: translateX(-50%);
 width: 100%;
 height: 100%;
 overflow: hidden;
+color: ${props => props.theme.text}; /* This sets the line to Ivory */
 
 svg{
   display: inline-block;
@@ -26,8 +27,6 @@ left: 1rem;
 const Bounce = keyframes`
 from {  transform: translateX(-50%) scale(0.5);   }
 to {  transform: translateX(-50%) scale(1);   }
-
-
 `
 
 const Ball = styled.div`
@@ -50,21 +49,20 @@ const DrawSvg = () => {
 const ref = useRef(null);
 const ballRef = useRef(null);
 
-
 gsap.registerPlugin(ScrollTrigger);
 useLayoutEffect(() => {
   let element = ref.current;
-
+  
+  // FIX: Target only the SVG inside this component
   let svg = ref.current.querySelector(".svg-path");
 
   const length = svg.getTotalLength(); 
 
-  
-//   start positioning of svg drawing
-svg.style.strokeDasharray = length;
+  // start positioning of svg drawing
+  svg.style.strokeDasharray = length;
 
-// Hide svg before scrolling start
-svg.style.strokeDashoffset = length;
+  // Hide svg before scrolling start
+  svg.style.strokeDashoffset = length;
 
   let t1 = gsap.timeline({
     scrollTrigger:{
@@ -73,18 +71,13 @@ svg.style.strokeDashoffset = length;
         end:"bottom bottom",
         onUpdate: (self) => {
             const draw = length * self.progress;
-
-            // also reverse the drawing when scroll goes up
             svg.style.strokeDashoffset = length - draw;
         },
         onToggle: self => {
             if(self.isActive){
-                // console.log("Scrolling is active");
                 ballRef.current.style.display = 'none';
             }else{
-                // console.log("Scrolling is not active");
                 ballRef.current.style.display = 'inline-block';
-
             }
         }
     }

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@fontsource/akaya-telivigala": "^5.0.8",
+    "@fontsource/raleway": "^5.2.8",
     "@fontsource/sora": "^5.0.15",
     "@formspree/react": "^3.0.0",
     "@testing-library/jest-dom": "^6.1.4",

@@ -8,12 +8,14 @@ const Btn = styled.a`
   outline: none;
   border: none;
 
+  font-family: 'Raleway', sans-serif; /* Added font-family here */
   font-size: ${(props) => props.theme.fontsm};
   padding: 0.9rem 2.3rem;
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.2s ease;
   position: relative;
+  
   &:hover {
     transform: scale(0.9);
   }
