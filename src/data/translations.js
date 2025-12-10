@@ -23,10 +23,10 @@ export const EN = {
   
   // About Section - UPDATED TO 4 SEPARATE PARAGRAPHS
   about_title: "Welcome To Function in Motion Physical Therapy PC",
-  about_text_1: "You’ve been through the pain—the endless search for relief that never quite came. Maybe you felt like just another appointment, another rushed session, another promise broken. We see that. We feel that. And we want you to know: you are not alone.",
-  about_text_2: "At Function in Motion Physical Therapy, we don’t just treat your injury. We see you—the person behind the pain, the life you want back, the dreams waiting to be lived fully again. We understand how deep this struggle goes because we’ve walked alongside so many who’ve felt lost and doubted if healing was even possible.",
-  about_text_3: "Here, you’re heard. Your story matters. And we build a plan that honors where you’ve been and where you want to go—not just for today, but for every tomorrow after. We won’t settle for quick fixes or empty words. We will empower you with knowledge, support your journey, and stand by you until your strength returns.",
-  about_text_4: "Healing is more than movement. It’s reclaiming hope, rebuilding trust in your body, and rediscovering your confidence. You deserve care that reaches beyond the surface—because your life is worth it, and so are you.",
+  about_text_1: "You’ve endured the agony—the endless hunt for relief that slipped away, feeling like just another faceless patient in rushed, broken promises. We see you. We feel your despair. You’re not alone.",
+  about_text_2: "At Function in Motion Physical Therapy, we don’t fix injuries—we resurrect you. The fighter behind the pain, the dreams crushed by doubt, the life screaming to break free. We’ve walked this fire with warriors like you, proving healing isn’t a myth.",
+  about_text_3: "Here, your story ignites our fight. We craft unbreakable plans that honor your scars and fuel your fire—not Band-Aids, but a relentless path to reclaim hope, shatter limits, and unleash the unbreakable force within.",
+  about_text_4: "This is Function in Motion: Where pain bows to power. Where motion becomes mastery. Your triumph starts now.",
   
   // Roadmap/Process Section
   roadmap_title: "Roadmap",
@@ -109,7 +109,7 @@ export const EN = {
   insurance_subtitle: "We work with major insurance providers so your patients can focus on healing, not paperwork.",
   
   // Footer & Banner
-  banner_title_1: "Real recovery. Real results. Real life.",
+  banner_title_1: "	Function in Motion: Conquer pain. Command motion. Dominate life.",
   banner_title_2: "Join Us!",
   footer_phone: "Phone:",
   footer_hours: "Hours",
@@ -145,10 +145,9 @@ export const ES = {
 
   // About Section - UPDATED TO 4 SEPARATE PARAGRAPHS
   about_title: "Bienvenido a Function in Motion Physical Therapy PC",
-  about_text_1: "Has pasado por el dolor: la búsqueda interminable de alivio que nunca llegó del todo. Tal vez te sentiste como una cita más, otra sesión apresurada, otra promesa rota. Vemos eso. Sentimos eso. Y queremos que sepas: no estás solo.",
-  about_text_2: "En Function in Motion Physical Therapy, no solo tratamos tu lesión. Te vemos a ti: la persona detrás del dolor, la vida que quieres recuperar, los sueños que esperan ser vividos plenamente de nuevo. Entendemos lo profunda que es esta lucha porque hemos caminado junto a tantos que se han sentido perdidos y dudaron si la curación era posible.",
-  about_text_3: "Aquí, eres escuchado. Tu historia importa. Y construimos un plan que honra dónde has estado y hacia dónde quieres ir, no solo para hoy, sino para cada mañana después. No nos conformaremos con soluciones rápidas o palabras vacías. Te empoderaremos con conocimiento, apoyaremos tu viaje y estaremos a tu lado hasta que regrese tu fuerza.",
-  about_text_4: "La curación es más que movimiento. Es recuperar la esperanza, reconstruir la confianza en tu cuerpo y redescubrir tu seguridad. Te mereces una atención que vaya más allá de la superficie, porque tu vida lo vale, y tú también.",
+  about_text_1: "Has soportado la agonía—la búsqueda interminable de alivio que se escapa, sintiéndote solo otro paciente sin rostro en sesiones apresuradas y promesas rotas. Te vemos. Sentimos tu desesperación. No estás solo.",
+  about_text_3: "AquAquí, tu historia enciende nuestra batalla. Forjamos planes inquebrantables que honran tus cicatrices y alimentan tu fuego—no parches, sino un camino implacable para reclamar esperanza, romper límites y desatar la fuerza inquebrantable dentro de ti.",
+  about_text_4: "Esto es Function in Motion: Donde el dolor se rinde al poder. Donde el movimiento se convierte en maestría. Tu triunfo comienza ahora.",
 
   // Roadmap/Process Section
   roadmap_title: "Hoja de Ruta",

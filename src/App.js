@@ -1,8 +1,8 @@
 // src/App.js
-import React from "react";
-import { Routes, Route } from "react-router-dom"; // Import Routes and Route
+import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import GlobalStyles from "./styles/GlobalStyles";
-import { light } from "./styles/Themes";
+import { light, dark } from "./styles/Themes";
 import { ThemeProvider } from "styled-components";
 
 import Navigation from "./components/Navigation";
@@ -13,40 +13,72 @@ import Team from "./components/sections/Team";
 import Footer from "./components/Footer";
 import Showcase from "./components/sections/Showcase";
 import Faq from "./components/sections/Faq";
+import ContactPage from "./components/ContactPage";
 import InsuranceSection from "./components/sections/InsuranceSection";
-import Blog from "./components/sections/Blog"; 
+import Blog from "./components/sections/Blog";
 import ScrollToTop from "./components/ScrollToTop";
 
 import { LanguageProvider } from "./context/LanguageContext";
+import styled from "styled-components";
+import FloatingContactCTA from "./components/FloatingContactCTA";
+
+const ThemeToggleButton = styled.button`
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 999;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid ${({ theme }) => theme.text};
+  background: transparent;
+  color: ${({ theme }) => theme.text};
+  font-size: 0.875rem;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+
+  &:hover {
+    opacity: 0.8;
+  }
+`;
 
 function App() {
+  // Default to the 'light' theme object by starting with 'dark' mode here.
+  const [themeMode, setThemeMode] = useState("dark");
+
+  const isLightBackground = themeMode === "light";
+  const currentTheme = isLightBackground ? dark : light;
+
+  const toggleTheme = () => {
+    setThemeMode((prev) => (prev === "light" ? "dark" : "light"));
+  };
+
   return (
     <LanguageProvider>
-      <ThemeProvider theme={light}>
+      <ThemeProvider theme={currentTheme}>
         <GlobalStyles />
-        
-        {/* Navigation stays outside Routes so it appears on all pages */}
+        <ThemeToggleButton onClick={toggleTheme}>
+          {isLightBackground ? "Dark mode" : "Light mode"}
+        </ThemeToggleButton>
         <Navigation />
-
         <Routes>
-          {/* The Main Landing Page - Groups all homepage sections */}
-          <Route path="/" element={
-            <>
-              <Home />
-              <About />
-              <Roadmap />
-              <Showcase />
-              <Team />
-              <Faq />
-              <InsuranceSection />
-            </>
-          } />
-
-          {/* The Separate Blog Page */}
+          <Route
+            path="/"
+            element={
+              <>
+                <Home />
+                <About />
+                <Roadmap />
+                <Showcase />
+                <Team />
+                <Faq />
+                <InsuranceSection />
+              </>
+            }
+          />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/contact" element={<ContactPage />} />
         </Routes>
-
-        {/* Footer and ScrollToTop appear on all pages */}
+        <FloatingContactCTA />
         <Footer />
         <ScrollToTop />
       </ThemeProvider>

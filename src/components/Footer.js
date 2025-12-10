@@ -172,7 +172,7 @@ const Footer = () => {
               <Facebook />
             </a>
             <a
-              href="https://www.instagram.com/code.bucks/"
+              href="https://www.instagram.com//"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="instagram"
@@ -180,7 +180,7 @@ const Footer = () => {
               <Instagram />
             </a>
             <a
-              href="https://twitter.com/code_bucks"
+              href="https://twitter.com/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="twitter"
@@ -188,7 +188,7 @@ const Footer = () => {
               <Twitter />
             </a>
             <a
-              href="https://www.linkedin.com/in/codebucks/"
+              href="https://www.linkedin.com/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="linkedin"
@@ -232,13 +232,13 @@ const Footer = () => {
           &copy; {new Date().getFullYear()} Function in Motion Physical Therapy PC. {translations.footer_all_rights_reserved}
         </span>
         <span>
-          {translations.footer_made_by.replace('❤️', '&#10084;')}
+         
           <a
-            href="https://devdreaming.com/about"
+            href="https://.com/about"
             target="_blank"
             rel="dofollow noreferrer"
           >
-            Outr8js Group
+        
           </a>
         </span>
       </Bottom>

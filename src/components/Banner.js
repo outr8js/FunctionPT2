@@ -13,12 +13,12 @@ width: 100vw;
 height: 25rem;
 position: relative;
 border-top: 2px solid ${props => props.theme.text};
-border-top: 2px solid ${props => props.theme.text};
+
 
 background-color: ${props => `rgba(${props.theme.textRgba},0.9)`};
 
 display: flex;
-justify-content: center;
+justify-content: left;
 align-items: center;
 
 
@@ -59,7 +59,7 @@ font-size: ${props => props.theme.fontxxxl};
 color: ${props => props.theme.body};
 padding: 1rem 2rem;
 z-index:10;
-width: 35%;
+width: 55%;
 text-transform: capitalize;
 
 text-shadow: 1px 1px 2px ${props => props.theme.text};
@@ -99,7 +99,7 @@ border: none;
 font-weight: 600;
 font-size: ${props => props.theme.fontlg};
 padding: 1.5rem 3rem;
-border-radius: 50px;
+border-radius: 12px;
 cursor: pointer;
 transition: all 0.2s ease;
 position: relative;
@@ -147,7 +147,7 @@ const Banner = () => {
             <img width={500} height={400}  src={img6} alt="Function in Motion" />
 
         </ImgContainer>
-        <Title>Real recovery. Real results. Real life. <br /> Join Us!  </Title>
+        <Title> Conquer Pain.  <br /> Command motion.<br/> Dominate life. <br />   </Title>
         <BtnContainer>
         <JoiNow href={"/#"} target='_blank'>
              (718) 942-5133

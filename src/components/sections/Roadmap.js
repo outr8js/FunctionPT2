@@ -18,8 +18,8 @@ const Title = styled.h1`
   text-transform: capitalize;
   color: ${(props) => props.theme.text};
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: left;
   margin: 1rem auto;
   border-bottom: 2px solid ${(props) => props.theme.text};
   width: fit-content;
@@ -30,7 +30,7 @@ const Title = styled.h1`
 `;
 
 const Container = styled.div`
-  width: 70%;
+  width: 80%;
   height: 200vh;
   background-color: ${(props) => props.theme.body};
   margin: 0 auto;
@@ -59,13 +59,13 @@ const Items = styled.ul`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Align items to top, relying on padding to push them down */
+  justify-content: flex-start;
   align-items: center;
-  padding-top: 10rem; /* FIX: Pushes the first card down so it doesn't overlap the title */
+  padding-top: 4rem; /* reduced so content sits higher */
 
   @media (max-width: 48em) {
     width: 90%;
-    padding-top: 5rem; /* Slightly less padding on mobile */
+    padding-top: 2rem; /* lighter padding on mobile */
   }
 
   & > *:nth-of-type(2n + 1) {
@@ -90,6 +90,7 @@ const Items = styled.ul`
       border-radius: 40px 0 40px 0;
     }
   }
+
   & > *:nth-of-type(2n) {
     justify-content: end;
     @media (max-width: 48em) {
@@ -107,12 +108,19 @@ const Items = styled.ul`
 
 const Item = styled.li`
   width: 100%;
-  min-height: 20vh; /* FIX: Ensures items have space between them so they don't bunch up */
+  min-height: 10vh;
   display: flex;
 
   @media (max-width: 48em) {
     justify-content: flex-end !important;
   }
+`;
+
+// Slim spacer to preserve odd/even pattern without pushing content too low
+const Spacer = styled.li`
+  width: 100%;
+  min-height: 2rem;
+  pointer-events: none;
 `;
 
 const ItemContainer = styled.div`
@@ -154,7 +162,7 @@ const Text = styled.span`
   color: ${(props) => props.theme.text};
   font-weight: 400;
   margin: 0.5rem 0;
-  
+
   @media (max-width: 40em) {
     font-size: ${(props) => props.theme.fontxs};
   }
@@ -165,7 +173,7 @@ const RoadMapItem = ({ title, subtext, addToRef }) => {
     <Item ref={addToRef}>
       <ItemContainer>
         <Box>
-          <SubTitle>{title} </SubTitle>
+          <SubTitle>{title}</SubTitle>
           <Text>{subtext}</Text>
         </Box>
       </ItemContainer>
@@ -174,7 +182,7 @@ const RoadMapItem = ({ title, subtext, addToRef }) => {
 };
 
 const Roadmap = () => {
-  const { translations } = useLanguage(); // Use hook
+  const { translations } = useLanguage();
   const revealRefs = useRef([]);
   revealRefs.current = [];
   gsap.registerPlugin(ScrollTrigger);
@@ -186,7 +194,8 @@ const Roadmap = () => {
   };
 
   useLayoutEffect(() => {
-    let t1 = gsap.timeline();
+    const t1 = gsap.timeline();
+
     revealRefs.current.forEach((el, index) => {
       t1.fromTo(
         el.childNodes[0],
@@ -195,21 +204,21 @@ const Roadmap = () => {
         },
         {
           y: "-30%",
-
           scrollTrigger: {
             id: `section-${index + 1}`,
             trigger: el,
             start: "top center+=200px",
             end: "bottom center",
             scrub: true,
-            // markers:true,
+            // markers: true,
           },
         }
       );
     });
 
     return () => {
-      if (t1) t1.kill();
+      t1.kill();
+      ScrollTrigger.getAll().forEach((st) => st.kill());
     };
   }, []);
 
@@ -221,9 +230,8 @@ const Roadmap = () => {
           <DrawSvg />
         </SvgContainer>
         <Items>
-          {/* This spacer item is crucial for the zigzag layout (odd/even) */}
-          <Item>&nbsp;</Item>
-          
+          {/* Slim spacer keeps odd/even alignment without eating 10vh */}
+          <Spacer aria-hidden="true" />
           <RoadMapItem
             addToRef={addToRefs}
             title={translations.roadmap_1_title}

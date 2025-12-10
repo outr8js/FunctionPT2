@@ -1,11 +1,9 @@
-// src/components/Navigation.js
 import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "./Button";
 import Logo from "./Logo";
 import { useLanguage } from "../context/LanguageContext";
 import { useNavigate, useLocation } from "react-router-dom";
-import ContactPage from "./ContactPage"; // Corrected import path
 
 const Section = styled.section`
   width: 100vw;
@@ -53,8 +51,9 @@ const Menu = styled.ul`
     background-color: ${(props) => `rgba(${props.theme.bodyRgba}, 0.85)`};
     backdrop-filter: blur(2px);
 
+    /* Transient Prop Fix: Changed props.click to props.$click */
     transform: ${(props) =>
-      props.click ? "translateY(0)" : "translateY(1000%)"};
+      props.$click ? "translateY(0)" : "translateY(1000%)"};
     transition: all 0.3s ease;
     flex-direction: column;
     justify-content: center;
@@ -122,14 +121,15 @@ const LanguageToggle = styled(MenuItem)`
 `;
 
 const HamburgerMenu = styled.span`
-  width: ${(props) => (props.click ? "2rem" : "1.5rem")};
+  /* Transient Prop Fix: Changed props.click to props.$click */
+  width: ${(props) => (props.$click ? "2rem" : "1.5rem")};
   height: 2px;
   background: ${(props) => props.theme.text};
   position: absolute;
   top: 2rem;
   left: 50%;
   transform: ${(props) =>
-    props.click
+    props.$click
       ? "translateX(-50%) rotate(90deg)"
       : "translateX(-50%) rotate(0)"};
   display: none;
@@ -145,28 +145,29 @@ const HamburgerMenu = styled.span`
   &::after,
   &::before {
     content: " ";
-    width: ${(props) => (props.click ? "1rem" : "1.5rem")};
-    height: 2px;
-    right: ${(props) => (props.click ? "-2px" : "0")};
+    /* Transient Prop Fix: Changed props.click to props.$click */
+    width: ${(props) => (props.$click ? "1rem" : "1.5rem")};
+    right: ${(props) => (props.$click ? "-2px" : "0")};
     background: ${(props) => props.theme.text};
     position: absolute;
     transition: all 0.3s ease;
   }
 
   &::after {
-    top: ${(props) => (props.click ? "0.3rem" : "0.5rem")};
-    transform: ${(props) => (props.click ? "rotate(-40deg)" : "rotate(0)")};
+    /* Transient Prop Fix: Changed props.click to props.$click */
+    top: ${(props) => (props.$click ? "0.3rem" : "0.5rem")};
+    transform: ${(props) => (props.$click ? "rotate(-40deg)" : "rotate(0)")};
   }
 
   &::before {
-    bottom: ${(props) => (props.click ? "0.3rem" : "0.5rem")};
-    transform: ${(props) => (props.click ? "rotate(40deg)" : "rotate(0)")};
+    /* Transient Prop Fix: Changed props.click to props.$click */
+    bottom: ${(props) => (props.$click ? "0.3rem" : "0.5rem")};
+    transform: ${(props) => (props.$click ? "rotate(40deg)" : "rotate(0)")};
   }
 `;
 
 const Navigation = () => {
   const [click, setClick] = useState(false);
-  const [isContactOpen, setIsContactOpen] = useState(false); // State for ContactPage popup
   const { lang, translations, toggleLanguage } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
@@ -204,8 +205,12 @@ const Navigation = () => {
     }
   };
 
-  const toggleContactPopup = () => {
-    setIsContactOpen(!isContactOpen);
+  const handleContactClick = () => {
+    setClick(false);
+    if (location.pathname !== "/contact") {
+      navigate("/contact");
+      window.scrollTo({ top: 0 });
+    }
   };
 
   return (
@@ -213,11 +218,13 @@ const Navigation = () => {
       <NavBar>
         <Logo />
 
-        <HamburgerMenu click={click} onClick={() => setClick(!click)}>
+        {/* Transient Prop Fix: Changed click={click} to $click={click} */}
+        <HamburgerMenu $click={click} onClick={() => setClick(!click)}>
           &nbsp;
         </HamburgerMenu>
 
-        <Menu click={click}>
+        {/* Transient Prop Fix: Changed click={click} to $click={click} */}
+        <Menu $click={click}>
           <MenuItem onClick={() => handleMenuClick("home")}>
             {translations.nav_home}
           </MenuItem>
@@ -247,7 +254,8 @@ const Navigation = () => {
             {lang === "EN" ? "ESPAÑOL" : "ENGLISH"}
           </LanguageToggle>
 
-          <MenuItem onClick={toggleContactPopup}> {/* Toggle popup on click */}
+          {/* Mobile contact button → /contact */}
+          <MenuItem onClick={handleContactClick}>
             <div className="mobile">
               <Button text={translations.btn_contact_us} />
             </div>
@@ -258,12 +266,11 @@ const Navigation = () => {
           {lang === "EN" ? "ES" : "EN"}
         </LanguageToggle>
 
-        <div className="desktop" onClick={toggleContactPopup}> {/* Toggle popup on click */}
+        {/* Desktop contact button → /contact */}
+        <div className="desktop" onClick={handleContactClick}>
           <Button text={translations.btn_contact_us} />
         </div>
       </NavBar>
-
-      {isContactOpen && <ContactPage onClose={toggleContactPopup} />} {/* Render ContactPage as popup */}
     </Section>
   );
 };
